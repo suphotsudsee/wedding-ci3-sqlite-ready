@@ -1,6 +1,6 @@
 <!-- application/views/register.php -->
 <?php ob_start(); ?>
-<div class="card p-4">
+<div class="card p-4" style="color:rgb(3, 6, 172);">
   <h4>ลงทะเบียนแขก</h4>
   <?php if($this->session->flashdata('msg')): ?>
     <div class="alert alert-info"><?= $this->session->flashdata('msg') ?></div>
