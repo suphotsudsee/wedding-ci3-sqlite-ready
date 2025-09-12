@@ -35,7 +35,7 @@
     <input id="guestSearch" class="form-control" placeholder="ค้นหาชื่อหรือรหัส..." style="max-width:280px;">
   </div>
 
-  <div class="table-responsive">
+  <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
     <table class="table table-hover  table-striped black-table table-bordered mb-0" id="guestTable">
       <thead class="thead-light">
         <tr class="text-center">
