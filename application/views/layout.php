@@ -16,7 +16,8 @@
 <!-- เรียกใช้ไลบรารี particles.js -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
-<body class="bg-light">
+<!-- <body class="bg-light"> -->
+  <body class="text-light" style="background-color: #000;">
   <!-- พื้นหลังอนุภาค -->
   <div id="particles-js"></div>
 
