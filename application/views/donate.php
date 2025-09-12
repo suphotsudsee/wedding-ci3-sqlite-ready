@@ -1,11 +1,11 @@
 
 <?php ob_start(); ?>
-<div class="card p-4 mb-3">
+<div class="card p-4 mb-3" style="color:rgb(3, 6, 172);">
   <div class="d-flex justify-content-between flex-wrap">
     <div>สวัสดีคุณ <b><?= htmlspecialchars($guest->name) ?></b> (รหัส <?= htmlspecialchars($guest->code) ?>)</div>
     <div>สิทธิที่เหลือ: <b><?= (int)$guest->credits_remaining ?></b> / 2</div>
   </div>
-  <small class="text-muted">เลือกได้ 2 ปุ่ม ห้ามซ้ำหัวข้อ</small>
+  <small style="color:rgb(3, 6, 172);">เลือกได้ 2 ปุ่ม ห้ามซ้ำหัวข้อ</small>
 </div>
 
 <div class="grid-3">

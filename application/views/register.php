@@ -27,7 +27,9 @@
       </div>
     </div>
   </form>
-
+  <div class="mt-3">
+    <a href="<?= site_url('dashboard') ?>" class="btn btn-secondary">กลับ Dashboard</a>
+  </div>
   <div class="d-flex justify-content-between align-items-center mb-2">
     <h5 class="mb-0">รายชื่อที่ลงทะเบียนแล้ว</h5>
     <input id="guestSearch" class="form-control" placeholder="ค้นหาชื่อหรือรหัส..." style="max-width:280px;">
@@ -71,9 +73,7 @@
     </table>
   </div>
 
-  <div class="mt-3">
-    <a href="<?= site_url('dashboard') ?>" class="btn btn-secondary">กลับ Dashboard</a>
-  </div>
+
 </div>
 
 <script>
