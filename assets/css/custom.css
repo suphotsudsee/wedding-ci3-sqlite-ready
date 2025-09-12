@@ -116,7 +116,7 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0px;                 /* ระยะห่างระหว่างรูปกับปุ่ม (ปรับได้ 0-8px) */
+  gap: 8px;                 /* ระยะห่างระหว่างรูปกับปุ่ม (ปรับได้ 0-8px) */
 }
 
 /* ตัด margin เดิมที่ทำให้ห่าง */
