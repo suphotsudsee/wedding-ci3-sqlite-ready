@@ -9,7 +9,16 @@
   <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/custom.css') ?>">
   <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/style.css') ?>">
   <style>
-    .card { border-radius: 1rem; background-color:#000; }
+    
+        .card { border-radius: 1rem;
+      
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      grid-gap:1rem;
+      background-color:#000;
+      background-image: url('<?= base_url('images/donation_bg.png') ?>');
+      background-size: cover;
+      background-position: center;
+    }
     .grid-3 { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); grid-gap:1rem; background-color:#000; }
     .btn-cat { padding:1.2rem; font-weight:600; }
   </style>
@@ -29,6 +38,17 @@
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<style>
+#particles-js {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;           /* ให้อยู่หลังเนื้อหา */
+    pointer-events: none;  /* ไม่รับคลิก */
+}
+</style>
 
   <!-- ตั้งค่าพาร์ติเคิล -->
   <script>

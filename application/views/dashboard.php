@@ -1,7 +1,7 @@
 <?php ob_start(); ?>
 <div class="d-flex justify-content-between align-items-center mb-3">
   <h4 class="mb-0">ภาพรวมเหรียญ</h4>
-  <div>
+  <div style="display: flex; justify-content: flex-start; gap: 8px;">
     <a href="<?= site_url('register') ?>" class="btn btn-info">ลงทะเบียน</a>
     <button class="btn btn-success" data-toggle="modal" data-target="#donateModal">บริจาค</button>
   </div>
