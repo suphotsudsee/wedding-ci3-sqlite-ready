@@ -16,11 +16,11 @@
     <div class="form-row">
       <div class="form-group col-md-5">
         <label>ชื่อแขก</label>
-        <input type="text" name="name" class="form-control" required>
+        <input type="text" name="name" id="guestName" class="form-control" required>
       </div>
       <div class="form-group col-md-5">
         <label>รหัสแขก</label>
-        <input type="text" name="code" class="form-control" required>
+        <input type="text" name="code" id="guestCode" class="form-control" required readonly>
       </div>
       <div class="form-group col-md-2 d-flex align-items-end">
         <button type="submit" class="btn btn-primary btn-block">บันทึก</button>
@@ -34,7 +34,7 @@
   </div>
 
   <div class="table-responsive">
-    <table class="table table-hover table-bordered mb-0" id="guestTable">
+    <table class="table table-hover  table-striped black-table table-bordered mb-0" id="guestTable">
       <thead class="thead-light">
         <tr class="text-center">
           <th style="width:64px;">#</th>
@@ -61,7 +61,7 @@
         <tr>
           <td class="text-center"><?= $i++ ?></td>
           <td><?= htmlspecialchars($g->name) ?></td>
-          <td><code><?= htmlspecialchars($g->code) ?></code></td>
+          <td class="text-center"><code><?= htmlspecialchars($g->code) ?></code></td>
           <td class="text-center"><?= $picked ?> / 2</td>
           <td class="text-center"><?= $left ?></td>
           <td class="text-center"><span class="badge badge-<?= $badge ?> p-2"><?= $status ?></span></td>
@@ -77,6 +77,44 @@
 </div>
 
 <script>
+// สร้างรหัสแขก 3 หลักอัตโนมัติ
+function generateGuestCode() {
+  // สร้างเลข 3 หลักแบบสุ่ม (100-999)
+  const code = Math.floor(Math.random() * 900) + 100;
+  return code.toString();
+}
+
+// เมื่อกรอกชื่อแขกเสร็จ ให้สร้างรหัสอัตโนมัติ
+document.getElementById('guestName').addEventListener('blur', function(){
+  const nameInput = this.value.trim();
+  const codeInput = document.getElementById('guestCode');
+  
+  if (nameInput && !codeInput.value) {
+    // ตรวจสอบว่ารหัสที่สร้างไม่ซ้ำกับที่มีอยู่แล้ว
+    let newCode;
+    let isUnique = false;
+    const existingCodes = Array.from(document.querySelectorAll('#guestTable tbody tr td:nth-child(3) code'))
+                              .map(el => el.textContent.trim());
+    
+    // สร้างรหัสใหม่จนกว่าจะไม่ซ้ำ
+    do {
+      newCode = generateGuestCode();
+      isUnique = !existingCodes.includes(newCode);
+    } while (!isUnique && existingCodes.length < 900); // ป้องกัน infinite loop
+    
+    codeInput.value = newCode;
+    codeInput.removeAttribute('readonly'); // ให้สามารถแก้ไขได้หากต้องการ
+  }
+});
+
+// เมื่อเคลียร์ชื่อ ให้เคลียร์รหัสด้วย
+document.getElementById('guestName').addEventListener('input', function(){
+  if (!this.value.trim()) {
+    document.getElementById('guestCode').value = '';
+    document.getElementById('guestCode').setAttribute('readonly', 'readonly');
+  }
+});
+
 // ค้นหาในตารางแบบง่าย ๆ
 document.getElementById('guestSearch').addEventListener('input', function(){
   const q = this.value.toLowerCase();

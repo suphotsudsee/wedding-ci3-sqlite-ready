@@ -122,3 +122,33 @@ img {
 /* ตัด margin เดิมที่ทำให้ห่าง */
 .stack-tight .icon-img { margin: 0 !important; }
 .stack-tight .engine-btn { margin: 0 !important; }
+
+/* สำหรับหน้า register เท่านั้น */
+body.register-page {
+  position: relative;
+}
+
+body.register-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('../images/bg_register.jpg') center/cover no-repeat;
+  opacity: 0.01;   /* ✅ โปร่งใส 1% */
+  z-index: -1;     /* อยู่ด้านหลัง content */
+}
+
+/* สีตัวอักษรดำทั้งตาราง */
+.black-table,
+.black-table th,
+.black-table td {
+  font-size: 20px !important;
+  line-height: 1.4;
+  color: #1d06f0 !important;
+}
+.black-table .badge,
+.black-table code {
+  color: #1d06f0 !important;
+}
+
+/* (ถ้าตารางมีลิงก์) ให้ลิงก์เป็นดำด้วย */
+.black-table a { color: #0307eb !important; }
