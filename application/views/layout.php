@@ -9,7 +9,7 @@
   <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/custom.css') ?>">
   <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/style.css') ?>">
   <style>
-    .card { border-radius: 1rem; }
+    .card { border-radius: 1rem; background-color:#000; }
     .grid-3 { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); grid-gap:1rem; background-color:#000; }
     .btn-cat { padding:1.2rem; font-weight:600; }
   </style>
