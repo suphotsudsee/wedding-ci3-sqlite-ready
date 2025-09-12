@@ -81,11 +81,23 @@ body{
   display: block;           /* ต้องเป็น block หรือ flex ถึงจะทำงาน */
 }
 
+/* ทำให้ img โปร่งใสชัวร์ */
 .icon-img {
-  width: 200px;
-  height: 200px;
+  max-width: 200px;
+  height: auto;
   margin: 0 auto 10px;
   display: block;
+  background: transparent !important;
+}
+
+/* ป้องกัน container card/panel ใส่พื้นหลังขาว */
+.card, .card-body, .p-4 {
+  background-color: transparent !important;
+}
+
+/* กัน Bootstrap/CI3 override */
+img {
+  background: transparent !important;
 }
 
 
@@ -98,3 +110,15 @@ body{
 @keyframes spin{
   to{ transform: rotate(360deg); }
 }
+
+/* จัดไอคอน + ปุ่ม ให้ชิดกันสำหรับเคสนี้เท่านั้น */
+.stack-tight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;                 /* ระยะห่างระหว่างรูปกับปุ่ม (ปรับได้ 0-8px) */
+}
+
+/* ตัด margin เดิมที่ทำให้ห่าง */
+.stack-tight .icon-img { margin: 0 !important; }
+.stack-tight .engine-btn { margin: 0 !important; }

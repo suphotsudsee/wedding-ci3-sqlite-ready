@@ -15,6 +15,7 @@
       $disabled = in_array($k,$donated) || $guest->credits_remaining<=0 || count($donated)>=2;
   ?>
   <div class="card p-4 text-center">
+    <div class="stack-tight">
    <?php if ($k == 'SCHOOL'): ?>
       <img src="<?= base_url('images/school.png') ?>" alt="โรงเรียน" class="mb-2 icon-img">
   <?php elseif ($k == 'HOSPITAL'): ?>
@@ -25,6 +26,7 @@
     <button class="engine-btn" onclick="donate('<?= $k ?>')">
       <span class="main-text">กดเพื่อบริจาค</span>
     </button>
+    </div>
   </div>
   <?php endforeach; ?>
 </div>
