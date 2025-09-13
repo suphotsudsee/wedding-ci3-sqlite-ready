@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><?= isset($title)?$title:'Wedding Donation' ?></title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Import Playlist Script from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Sirivennela&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/custom.css') ?>">
   <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/style.css') ?>">
   <style>
@@ -30,7 +32,8 @@
   <div id="particles-js"></div>
 
   <div class="container py-4">
-    <h1 class="mb-4">Wedding Donation</h1>
+    <h1 style="font-family: 'Sirivennela', cursive; font-size: 100px; color: white;">
+  Wedding Donation</h1>
     <?= $content ?>
   </div>
   
