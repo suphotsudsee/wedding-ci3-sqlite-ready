@@ -243,8 +243,18 @@
     font-size: 3.2rem;
     font-weight: 700;
     color: #ffffff;
+    --outer-shadow-x: 0px;
+    --outer-shadow-y: 18px;
+    --outer-shadow-blur: 32px;
+    --outer-shadow-color: rgba(28, 121, 255, 0.35);
+    --outer-shadow-strong: rgba(28, 121, 255, 0.55);
+    --inner-shadow-blur: 30px;
+    --inner-shadow-color: rgba(255, 255, 255, 0.18);
+    --inner-shadow-strong: rgba(255, 255, 255, 0.32);
     background: radial-gradient(circle at 50% 30%, #6bd9ff 0%, #1c79ff 70%);
-    box-shadow: 0 18px 32px rgba(28, 121, 255, 0.35), inset 0 0 30px rgba(255, 255, 255, 0.18);
+    box-shadow: var(--outer-shadow-x) var(--outer-shadow-y) var(--outer-shadow-blur) var(--outer-shadow-color),
+      inset 0 0 var(--inner-shadow-blur) var(--inner-shadow-color);
+    animation: corePulse 3.6s ease-in-out infinite;
   }
 
   .summary-card__value::before {
@@ -254,7 +264,25 @@
     border-radius: 50%;
     background: linear-gradient(135deg, rgba(109, 216, 255, 0.6), rgba(30, 105, 255, 0));
     box-shadow: 0 0 35px rgba(109, 216, 255, 0.45);
+    z-index: -2;
+    animation: haloPulse 3.6s ease-in-out infinite;
+  }
+
+  .summary-card__value::after {
+    content: "";
+    position: absolute;
+    inset: -18px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, rgba(255, 255, 255, 0) 0deg, rgba(255, 255, 255, 0) 295deg,
+        rgba(255, 255, 255, 0.85) 330deg, rgba(255, 255, 255, 0));
+    box-shadow: 0 0 28px rgba(109, 216, 255, 0.35);
+    mask: radial-gradient(farthest-side, transparent calc(100% - 14px), #000 calc(100% - 6px));
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 14px), #000 calc(100% - 6px));
+    animation: rotateLight 5.5s linear infinite;
+    opacity: 0.85;
     z-index: -1;
+    pointer-events: none;
+    mix-blend-mode: screen;
   }
 
   .summary-card--total {
@@ -267,11 +295,52 @@
 
   .summary-card--total .summary-card__value {
     background: radial-gradient(circle at 50% 30%, #7df5e8 0%, #28d5ff 65%);
-    box-shadow: 0 20px 34px rgba(41, 209, 255, 0.35), inset 0 0 30px rgba(255, 255, 255, 0.2);
+    --outer-shadow-y: 20px;
+    --outer-shadow-blur: 34px;
+    --outer-shadow-color: rgba(41, 209, 255, 0.35);
+    --outer-shadow-strong: rgba(41, 209, 255, 0.55);
+    --inner-shadow-color: rgba(255, 255, 255, 0.2);
+    --inner-shadow-strong: rgba(255, 255, 255, 0.38);
   }
 
   .summary-card--total .summary-card__value::before {
     background: linear-gradient(135deg, rgba(109, 255, 241, 0.6), rgba(41, 209, 255, 0));
+  }
+
+  @keyframes corePulse {
+    0%,
+    100% {
+      box-shadow: var(--outer-shadow-x) var(--outer-shadow-y) var(--outer-shadow-blur) var(--outer-shadow-color),
+        inset 0 0 var(--inner-shadow-blur) var(--inner-shadow-color);
+    }
+
+    50% {
+      box-shadow: var(--outer-shadow-x) calc(var(--outer-shadow-y) + 4px) calc(var(--outer-shadow-blur) + 12px) var(--outer-shadow-strong),
+        inset 0 0 calc(var(--inner-shadow-blur) + 14px) var(--inner-shadow-strong);
+    }
+  }
+
+  @keyframes haloPulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+
+    50% {
+      transform: scale(1.1);
+      opacity: 0.95;
+    }
+  }
+
+  @keyframes rotateLight {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   @media (max-width: 768px) {
