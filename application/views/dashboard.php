@@ -7,7 +7,7 @@
   .dashboard-hero {
     position: relative;
     display: grid;
-    grid-template-columns: minmax(280px, 360px) minmax(380px, 1fr);
+    grid-template-columns: 40% 60%; /* Summary panel จะได้ 75% */
     gap: 2.5rem;
     align-items: stretch;
     margin-top: 1.5rem;
@@ -374,6 +374,7 @@
       height: 110px;
       font-size: 2.8rem;
     }
+
   }
 </style>
 
@@ -396,6 +397,8 @@
       </div>
       <div class="summary-actions">
         <a href="<?= site_url('register') ?>" class="summary-action-btn summary-action-btn--register">ลงทะเบียน</a>
+      </div>
+      <div class="summary-actions">
         <button type="button" class="summary-action-btn summary-action-btn--donate" data-toggle="modal" data-target="#donateModal">บริจาค</button>
       </div>
     </div>
