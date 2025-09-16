@@ -1,43 +1,357 @@
 <?php ob_start(); ?>
-<div class="d-flex justify-content-between align-items-center mb-3">
-  <h4 class="mb-0">ภาพรวมเหรียญ</h4>
-  <div style="display: flex; justify-content: flex-start; gap: 8px;">
-    <a href="<?= site_url('register') ?>" class="btn btn-info">ลงทะเบียน</a>
-    <button class="btn btn-success" data-toggle="modal" data-target="#donateModal">บริจาค</button>
-  </div>
-</div>
+<style>
+  body > .container > h1 {
+    display: none;
+  }
 
-<div class="grid-3">
-  <div class="card p-4 text-center">
-    <div class="text-muted">โรงเรียน</div>
-    <div class="display-4">
-    <button class="engine-btn">
-      <span class="big-text"><?= (int)$sum['SCHOOL'] ?></span>
-    </button>
-  </div>
-  </div>
-  <div class="card p-4 text-center">
-    <div class="text-muted">โรงพยาบาล</div>
-    <div class="display-4">
-          <button class="engine-btn">
-      <span class="big-text"><?= (int)$sum['HOSPITAL'] ?></span>
-    </button></div>
-  </div>
-  <div class="card p-4 text-center">
-    <div class="text-muted">วัด</div>
-    <div class="display-4">
-      <button class="engine-btn">
-      <span class="big-text"><?= (int)$sum['TEMPLE'] ?></span>
-    </button></div>
-  </div>
-</div>
+  .dashboard-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(280px, 360px) minmax(380px, 1fr);
+    gap: 2.5rem;
+    align-items: stretch;
+    margin-top: 1.5rem;
+  }
 
-<div class="card p-4 mt-3 text-center">
-  <div class="text-muted">รวมทั้งหมด</div>
-  <div class="display-4">
-    <button class="engine-btn">
-      <span class="big-text"><?= (int)$total ?></span>
-    </button></div>
+  @media (max-width: 1200px) {
+    .dashboard-hero {
+      grid-template-columns: minmax(260px, 320px) minmax(360px, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .dashboard-hero {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .wedding-card {
+    position: relative;
+    border-radius: 32px;
+    overflow: hidden;
+    min-height: 520px;
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(6px);
+  }
+
+  .wedding-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('<?= base_url('images/wedding-hero.jpg') ?>') center top / cover no-repeat;
+    transform: scale(1.02);
+    filter: saturate(1.05);
+  }
+
+  .wedding-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(17, 9, 44, 0.75) 75%, rgba(12, 7, 28, 0.95) 100%);
+  }
+
+  .wedding-card__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 2.75rem 2.25rem;
+    color: #fefefe;
+    text-shadow: 0 12px 34px rgba(0, 0, 0, 0.6);
+  }
+
+  .wedding-card__names {
+    font-family: 'Sirivennela', cursive;
+    font-size: 3.4rem;
+    line-height: 1.1;
+    letter-spacing: 2px;
+  }
+
+  .wedding-card__names span {
+    display: block;
+  }
+
+  .wedding-card__accent {
+    width: 70px;
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(255, 196, 224, 0.9), rgba(255, 132, 173, 0.5));
+    margin: 1.5rem 0;
+  }
+
+  .wedding-card__date {
+    font-size: 1.05rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255, 232, 242, 0.95);
+  }
+
+  .summary-panel {
+    position: relative;
+    border-radius: 32px;
+    padding: 2.5rem;
+    background: linear-gradient(145deg, rgba(16, 23, 52, 0.9), rgba(32, 16, 46, 0.85));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+  }
+
+  .summary-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('<?= base_url('images/donation_bg.png') ?>') center/cover no-repeat;
+    opacity: 0.25;
+    mix-blend-mode: screen;
+  }
+
+  .summary-panel > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .summary-title {
+    margin: 0;
+    font-family: 'Sirivennela', cursive;
+    font-size: 3.25rem;
+    color: #fff;
+  }
+
+  .summary-subtitle {
+    margin: 0.35rem 0 0;
+    font-size: 1.1rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 229, 247, 0.85);
+  }
+
+  .summary-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .summary-action-btn {
+    border: none;
+    border-radius: 999px;
+    padding: 0.75rem 1.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  .summary-action-btn:focus {
+    outline: none;
+  }
+
+  .summary-action-btn--register {
+    background: linear-gradient(120deg, #ffd4e5, #ff9fc8);
+    color: #3a1037;
+  }
+
+  .summary-action-btn--donate {
+    background: linear-gradient(120deg, #66f1d9, #3ed5ff);
+    color: #041428;
+  }
+
+  .summary-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .summary-grid {
+    margin-top: 2.25rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem;
+  }
+
+  @media (max-width: 576px) {
+    .summary-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .summary-card {
+    position: relative;
+    border-radius: 26px;
+    padding: 1.8rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
+    min-height: 210px;
+  }
+
+  .summary-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('<?= base_url('images/donation_bg.png') ?>') center/cover no-repeat;
+    opacity: 0.4;
+    mix-blend-mode: lighten;
+  }
+
+  .summary-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(255, 183, 214, 0.35), transparent 55%);
+    opacity: 0.9;
+  }
+
+  .summary-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .summary-card__label {
+    font-size: 1.15rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255, 231, 245, 0.95);
+  }
+
+  .summary-card__value {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: radial-gradient(circle at 50% 30%, #6bd9ff 0%, #1c79ff 70%);
+    box-shadow: 0 18px 32px rgba(28, 121, 255, 0.35), inset 0 0 30px rgba(255, 255, 255, 0.18);
+  }
+
+  .summary-card__value::before {
+    content: "";
+    position: absolute;
+    inset: -12px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(109, 216, 255, 0.6), rgba(30, 105, 255, 0));
+    box-shadow: 0 0 35px rgba(109, 216, 255, 0.45);
+    z-index: -1;
+  }
+
+  .summary-card--total {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06));
+  }
+
+  .summary-card--total::after {
+    background: radial-gradient(circle at bottom left, rgba(58, 241, 255, 0.45), transparent 60%);
+  }
+
+  .summary-card--total .summary-card__value {
+    background: radial-gradient(circle at 50% 30%, #7df5e8 0%, #28d5ff 65%);
+    box-shadow: 0 20px 34px rgba(41, 209, 255, 0.35), inset 0 0 30px rgba(255, 255, 255, 0.2);
+  }
+
+  .summary-card--total .summary-card__value::before {
+    background: linear-gradient(135deg, rgba(109, 255, 241, 0.6), rgba(41, 209, 255, 0));
+  }
+
+  @media (max-width: 768px) {
+    .wedding-card {
+      min-height: 460px;
+    }
+
+    .wedding-card__content {
+      padding: 2.25rem 1.75rem;
+    }
+
+    .wedding-card__names {
+      font-size: 3rem;
+    }
+
+    .summary-panel {
+      padding: 2rem 1.75rem;
+    }
+
+    .summary-title {
+      font-size: 2.75rem;
+    }
+
+    .summary-card {
+      padding: 1.6rem 1.25rem;
+    }
+
+    .summary-card__value {
+      width: 110px;
+      height: 110px;
+      font-size: 2.8rem;
+    }
+  }
+</style>
+
+<div class="dashboard-hero">
+  <section class="wedding-card">
+    <div class="wedding-card__content">
+      <div>
+        <div class="wedding-card__names">
+          Nakchamon
+          <span>Kunakorn</span>
+        </div>
+        <div class="wedding-card__accent"></div>
+      </div>
+      <div class="wedding-card__date">November 02, 2025</div>
+    </div>
+  </section>
+
+  <section class="summary-panel">
+    <div class="summary-header">
+      <div>
+        <h2 class="summary-title">Wedding Donation</h2>
+        <p class="summary-subtitle">ภาพรวมเหรียญ</p>
+      </div>
+      <div class="summary-actions">
+        <a href="<?= site_url('register') ?>" class="summary-action-btn summary-action-btn--register">ลงทะเบียน</a>
+        <button type="button" class="summary-action-btn summary-action-btn--donate" data-toggle="modal" data-target="#donateModal">บริจาค</button>
+      </div>
+    </div>
+
+    <div class="summary-grid">
+      <article class="summary-card">
+        <div class="summary-card__label">โรงเรียน</div>
+        <div class="summary-card__value"><?= (int)$sum['SCHOOL'] ?></div>
+      </article>
+      <article class="summary-card">
+        <div class="summary-card__label">โรงพยาบาล</div>
+        <div class="summary-card__value"><?= (int)$sum['HOSPITAL'] ?></div>
+      </article>
+      <article class="summary-card">
+        <div class="summary-card__label">วัด</div>
+        <div class="summary-card__value"><?= (int)$sum['TEMPLE'] ?></div>
+      </article>
+      <article class="summary-card summary-card--total">
+        <div class="summary-card__label">รวมทั้งหมด</div>
+        <div class="summary-card__value"><?= (int)$total ?></div>
+      </article>
+    </div>
+  </section>
 </div>
 
 <!-- Modal ใส่รหัสแขก - Enhanced Design -->
