@@ -311,21 +311,18 @@
   <section class="wedding-card">
     <div class="wedding-card__content">
       <div>
-        <div class="wedding-card__names">
-          Nakchamon
-          <span>Kunakorn</span>
+        <div class="wedding-card__names">.
         </div>
-        <div class="wedding-card__accent"></div>
+        <div class="wedding-card__accent">.</div>
       </div>
-      <div class="wedding-card__date">November 02, 2025</div>
-    </div>
+    </div>.
   </section>
 
   <section class="summary-panel">
     <div class="summary-header">
       <div>
         <h2 class="summary-title">Wedding Donation</h2>
-        <p class="summary-subtitle">ภาพรวมเหรียญ</p>
+        <p class="summary-subtitle">"ขอบคุณที่มาร่วมเป็นส่วนหนึ่งในวันสำคัญของเรา"</p>
       </div>
       <div class="summary-actions">
         <a href="<?= site_url('register') ?>" class="summary-action-btn summary-action-btn--register">ลงทะเบียน</a>
